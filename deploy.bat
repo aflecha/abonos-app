@@ -6,11 +6,20 @@ echo Subiendo cambios a GitHub...
 echo ============================
 
 git add .
-git commit -m "update"
-git push || git push --set-upstream origin main
 
+git commit -m "update automatico"
+
+git push
+
+IF %ERRORLEVEL% NEQ 0 (
+    echo.
+    echo ? Error en push, intentando configurar upstream...
+    git push --set-upstream origin main
+)
+
+echo.
 echo ============================
-echo Listo! Render se actualiza solo
+echo Listo! Si no hubo errores, Render se actualiza solo
 echo ============================
 
 pause
