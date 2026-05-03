@@ -1,10 +1,20 @@
 from flask import Flask, render_template, request, redirect
+import os
 import sqlite3
+import psycopg2
 
 app = Flask(__name__)
 
+def get_conn():
+    db_url = os.environ.get("DATABASE_URL")
+
+    if db_url:
+        return psycopg2.connect(db_url)
+    else:
+        return sqlite3.connect("datos.db")    
+
 def conectar():
-    return sqlite3.connect("datos.db")
+    return get_conn()
 
 def crear_tablas():
     con = conectar()
@@ -40,6 +50,8 @@ def crear_tablas():
 
     con.commit()
     con.close()
+
+crear_tablas()    
 
 from datetime import datetime
 @app.route("/", methods=["GET", "POST"])
@@ -256,6 +268,7 @@ import os
 if __name__ == "__main__":
     crear_tablas()
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)   
+    app.run(host="0.0.0.0", port=port)
+
     
     
