@@ -13,13 +13,18 @@ git push
 
 IF %ERRORLEVEL% NEQ 0 (
     echo.
-    echo ? Error en push, intentando configurar upstream...
+    echo Intentando primer push...
     git push --set-upstream origin main
 )
 
 echo.
 echo ============================
-echo Listo! Si no hubo errores, Render se actualiza solo
+echo Listo! Render va a actualizar solo
 echo ============================
 
 pause
+
+
+
+
+

@@ -2,34 +2,27 @@
 
 {% block content %}
 
-<h1>Clientes</h1>
-
 <div class="card">
-<form method="post">
-    Nombre:
-    <input name="nombre" required>
+    <h3>Nuevo cliente</h3>
 
-    Abono:
-    <input type="number" name="abono" required>
-
-    <button type="submit">Agregar</button>
-</form>
-</div>
-
-<div class="card">
-<ul>
-{% for c in clientes %}
-    <li>
-    {{ c[1] }} - ${{ c[2] }}
-
-    <form action="/eliminar_cliente/{{ c[0] }}" method="get" class="inline-form">
-        <button class="btn-eliminar" onclick="return confirm('¿Eliminar cliente?')">Eliminar</button>
+    <form method="post">
+        <input name="nombre" placeholder="Nombre">
+        <button class="btn">Agregar</button>
     </form>
-	</li>
-{% endfor %}
-</ul>
 </div>
 
-<a href="/">Volver</a>
+<div class="card">
+    <h3>Listado</h3>
+
+    {% for c in clientes %}
+        <div class="row">
+            <span>{{ c[1] }}</span>
+
+            <form method="post" action="/eliminar_cliente/{{ c[0] }}">
+                <button class="btn-danger">Eliminar</button>
+            </form>
+        </div>
+    {% endfor %}
+</div>
 
 {% endblock %}

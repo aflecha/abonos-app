@@ -1,90 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Abonos App</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <style>
         body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-			background: rgb(175,238,238);
+            font-family: "Segoe UI", sans-serif;
             margin: 0;
-            padding: 0;
+            background: #f4f6f7;
+        }
+
+        header {
+            background: rgb(175,238,238);
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav {
+            background: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
         }
 
         .container {
-            max-width: 600px;
-            margin: auto;
             padding: 15px;
-        }
-
-        h1 {
-            text-align: center;
         }
 
         .card {
             background: white;
             padding: 15px;
-            margin-bottom: 15px;
             border-radius: 10px;
+            margin-bottom: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        input, select, button {
+        input, select {
+            padding: 8px;
+            margin: 5px 0;
             width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 10px;
             border-radius: 6px;
             border: 1px solid #ccc;
-            font-size: 16px;
         }
 
         button {
-            background: teal;
-            color: white;
+            padding: 8px 12px;
             border: none;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-            text-decoration: none;
-            font-weight: bold;
+        .btn {
+            background: rgb(175,238,238);
         }
 
-        .resultado {
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
+        .btn-danger {
+            background: #8B0000;
+            color: white;
+            font-size: 12px;
+            padding: 4px 8px;
         }
-		.btn-eliminar {
-		display: inline-block;
-		width: auto;
-		padding: 3px 8px;
-		font-size: 12px;
-		background: #800000; /* bordó */
-		color: white;
-		border: none;
-		border-radius: 4px;
-		margin-left: 8px;
-		cursor: pointer;
-		}
-		.btn-eliminar:hover {
-			background: #a00000;
-		}
-		.inline-form {
-		display: inline;
-	}
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
     </style>
 </head>
 
 <body>
-    <div class="container">
-        {% block content %}{% endblock %}
-    </div>
+
+<header>Abonos App</header>
+
+<nav>
+    <a href="/">Inicio</a>
+    <a href="/clientes">Clientes</a>
+    <a href="/gastos">Gastos</a>
+</nav>
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
 </body>
 </html>
