@@ -252,8 +252,10 @@ def eliminar_gasto(id):
     return redirect("/gastos")    
     
 
+import os
+
 if __name__ == "__main__":
     crear_tablas()
-    app.run(debug=True)
-    
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
     
