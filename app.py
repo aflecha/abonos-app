@@ -251,7 +251,9 @@ def eliminar_gasto(id):
 
     return redirect("/gastos")    
     
-crear_tablas()
 
 if __name__ == "__main__":
+    crear_tablas()
     app.run(debug=True)
+    
+    
