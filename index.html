@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="get" class="card">
+    <label><b>Mes:</b></label>
+    <input type="month" name="mes" value="{{ mes }}">
+    <button type="submit">Filtrar</button>
+</form>
+
+<h1>Resumen</h1>
+
+<div class="card">
+    <p>Abel cobró: ${{ abel_ing }}</p>
+    <p>Valeria cobró: ${{ vale_ing }}</p>
+
+    <p>Abel gastos: ${{ abel_gas }}</p>
+    <p>Valeria gastos: ${{ vale_gas }}</p>
+</div>
+
+<div class="card resultado">
+    {{ mensaje }}
+</div>
+
+<div class="card">
+    <a href="/clientes">Clientes</a>
+    <a href="/cobros">Cobros</a>
+    <a href="/gastos">Gastos</a>
+	<a href="/informe">Informe</a>
+</div>
+
+{% endblock %}

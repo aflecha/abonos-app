@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Clientes</h1>
+
+<div class="card">
+<form method="post">
+    Nombre:
+    <input name="nombre" required>
+
+    Abono:
+    <input type="number" name="abono" required>
+
+    <button type="submit">Agregar</button>
+</form>
+</div>
+
+<div class="card">
+<ul>
+{% for c in clientes %}
+    <li>
+    {{ c[1] }} - ${{ c[2] }}
+
+    <form action="/eliminar_cliente/{{ c[0] }}" method="get" class="inline-form">
+        <button class="btn-eliminar" onclick="return confirm('¿Eliminar cliente?')">Eliminar</button>
+    </form>
+	</li>
+{% endfor %}
+</ul>
+</div>
+
+<a href="/">Volver</a>
+
+{% endblock %}
