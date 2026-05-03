@@ -7,7 +7,7 @@ echo ============================
 
 git add .
 git commit -m "update"
-git push
+git push || git push --set-upstream origin main
 
 echo ============================
 echo Listo! Render se actualiza solo
