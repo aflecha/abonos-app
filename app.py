@@ -215,7 +215,7 @@ def informe():
 
     # pagos
     cur.execute("""
-    SELECT fecha, clientes.nombre, importe, 'PAGO', persona
+    SELECT fecha, clientes.nombre, importe, 'COBRO', persona
     FROM pagos
     JOIN clientes ON clientes.id = pagos.cliente_id
     """)
