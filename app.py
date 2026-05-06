@@ -105,20 +105,22 @@ def index():
     cur.execute(f"""
         SELECT persona, SUM(importe)
         FROM pagos
-        {filtro}
+        where saldado = 0
+        { "AND SUBSTRING(fecha,1,7) = %s" if mes else "" }
         GROUP BY persona
-    """, params)
-
+        """, (mes,) if mes else ())
+    
     ingresos = {row[0]: row[1] for row in cur.fetchall()}
 
     # gastos
     cur.execute(f"""
         SELECT persona, SUM(importe)
         FROM gastos
-        {filtro}
+        where saldado = 0
+        { "AND SUBSTRING(fecha,1,7) = %s" if mes else "" }
         GROUP BY persona
-    """, params)
-
+        """, (mes,) if mes else ())
+    
     gastos = {row[0]: row[1] for row in cur.fetchall()}
 
     abel_ing = ingresos.get("Abel", 0)
