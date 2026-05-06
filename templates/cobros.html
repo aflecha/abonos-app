@@ -1,98 +1,48 @@
-<<<<<<< HEAD
 {% extends "base.html" %}
 
 {% block content %}
 
-<h1>Cobros</h1>
-
 <div class="card">
-<form method="post">
-    Cliente:
-    <select name="cliente_id">
-        {% for c in clientes %}
-            <option value="{{ c[0] }}">{{ c[1] }}</option>
-        {% endfor %}
-    </select>
+    <h3>Registrar cobro</h3>
 
-    Fecha:
-    <input type="date" name="fecha" required>
+    <form method="post">
+        <label>Cliente:</label>
+        <select name="cliente_id">
+            {% for c in clientes %}
+                <option value="{{ c[0] }}">{{ c[1] }}</option>
+            {% endfor %}
+        </select>
 
-    Importe:
-    <input type="number" step="0.01" name="importe" required>
+        <label>Fecha:</label>
+        <input type="date" name="fecha" required>
 
-    Persona:
-    <select name="persona">
-        <option>Abel</option>
-        <option>Valeria</option>
-    </select>
+        <label>Importe:</label>
+        <input type="number" step="0.01" name="importe" required>
 
-    <button type="submit">Registrar</button>
-</form>
-</div>
+        <label>Persona:</label>
+        <select name="persona">
+            <option>Abel</option>
+            <option>Valeria</option>
+        </select>
 
-<div class="card">
-<ul>
-{% for p in pagos %}
-    <li>
-    {{ p[2] }} - {{ p[1] }} - ${{ p[3] }} ({{ p[4] }})
-
-    <form action="/eliminar_pago/{{ p[0] }}" method="get" class="inline-form">
-        <button class="btn-eliminar" onclick="return confirm('¿Eliminar pago?')">Eliminar</button>
+        <button class="btn">Registrar</button>
     </form>
-	</li>
-{% endfor %}
-</ul>
-</div>
-
-<a href="/">Volver</a>
-
-=======
-{% extends "base.html" %}
-
-{% block content %}
-
-<h1>Cobros</h1>
-
-<div class="card">
-<form method="post">
-    Cliente:
-    <select name="cliente_id">
-        {% for c in clientes %}
-            <option value="{{ c[0] }}">{{ c[1] }}</option>
-        {% endfor %}
-    </select>
-
-    Fecha:
-    <input type="date" name="fecha" required>
-
-    Importe:
-    <input type="number" step="0.01" name="importe" required>
-
-    Persona:
-    <select name="persona">
-        <option>Abel</option>
-        <option>Valeria</option>
-    </select>
-
-    <button type="submit">Registrar</button>
-</form>
 </div>
 
 <div class="card">
-<ul>
-{% for p in pagos %}
-    <li>
-    {{ p[2] }} - {{ p[1] }} - ${{ p[3] }} ({{ p[4] }})
+    <h3>Listado de cobros</h3>
 
-    <form action="/eliminar_pago/{{ p[0] }}" method="get" class="inline-form">
-        <button class="btn-eliminar" onclick="return confirm('¿Eliminar pago?')">Eliminar</button>
-    </form>
-	</li>
-{% endfor %}
-</ul>
+    {% for p in pagos %}
+        <div class="row">
+            <span>{{ p[2] }} - {{ p[1] }} - ${{ p[3] }} ({{ p[4] }})</span>
+
+            <form action="/eliminar_pago/{{ p[0] }}" method="get">
+                <button class="btn-danger" onclick="return confirm('¿Eliminar pago?')">
+                    Eliminar
+                </button>
+            </form>
+        </div>
+    {% endfor %}
 </div>
 
-<a href="/">Volver</a>
-
->>>>>>> 5e0e3dc590213e63d2ca6d7806baa3516c17f7d7
 {% endblock %}

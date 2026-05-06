@@ -1,90 +1,44 @@
-<<<<<<< HEAD
 {% extends "base.html" %}
 
 {% block content %}
 
-<h1>Gastos</h1>
-
 <div class="card">
-<form method="post">
-    Descripción:
-    <input name="descripcion" required>
+    <h3>Registrar gasto</h3>
 
-    Fecha:
-    <input type="date" name="fecha" required>
+    <form method="post">
+        <label>Descripción:</label>
+        <input name="descripcion" required>
 
-    Importe:
-    <input type="number" step="0.01" name="importe" required>
+        <label>Fecha:</label>
+        <input type="date" name="fecha" required>
 
-    Persona:
-    <select name="persona">
-        <option>Abel</option>
-        <option>Valeria</option>
-    </select>
+        <label>Importe:</label>
+        <input type="number" step="0.01" name="importe" required>
 
-    <button type="submit">Agregar</button>
-</form>
-</div>
+        <label>Persona:</label>
+        <select name="persona">
+            <option>Abel</option>
+            <option>Valeria</option>
+        </select>
 
-<div class="card">
-<ul>
-{% for g in gastos %}
-    <li>
-    {{ g[2] }} - {{ g[1] }} - ${{ g[3] }} ({{ g[4] }})
-
-    <form action="/eliminar_gasto/{{ g[0] }}" method="get" class="inline-form">
-        <button class="btn-eliminar" onclick="return confirm('¿Eliminar gasto?')">Eliminar</button>
+        <button class="btn">Agregar</button>
     </form>
-	</li>
-{% endfor %}
-</ul>
-</div>
-
-<a href="/">Volver</a>
-
-=======
-{% extends "base.html" %}
-
-{% block content %}
-
-<h1>Gastos</h1>
-
-<div class="card">
-<form method="post">
-    Descripción:
-    <input name="descripcion" required>
-
-    Fecha:
-    <input type="date" name="fecha" required>
-
-    Importe:
-    <input type="number" step="0.01" name="importe" required>
-
-    Persona:
-    <select name="persona">
-        <option>Abel</option>
-        <option>Valeria</option>
-    </select>
-
-    <button type="submit">Agregar</button>
-</form>
 </div>
 
 <div class="card">
-<ul>
-{% for g in gastos %}
-    <li>
-    {{ g[2] }} - {{ g[1] }} - ${{ g[3] }} ({{ g[4] }})
+    <h3>Listado de gastos</h3>
 
-    <form action="/eliminar_gasto/{{ g[0] }}" method="get" class="inline-form">
-        <button class="btn-eliminar" onclick="return confirm('¿Eliminar gasto?')">Eliminar</button>
-    </form>
-	</li>
-{% endfor %}
-</ul>
+    {% for g in gastos %}
+        <div class="row">
+            <span>{{ g[2] }} - {{ g[1] }} - ${{ g[3] }} ({{ g[4] }})</span>
+
+            <form action="/eliminar_gasto/{{ g[0] }}" method="get">
+                <button class="btn-danger" onclick="return confirm('¿Eliminar gasto?')">
+                    Eliminar
+                </button>
+            </form>
+        </div>
+    {% endfor %}
 </div>
 
-<a href="/">Volver</a>
-
->>>>>>> 5e0e3dc590213e63d2ca6d7806baa3516c17f7d7
 {% endblock %}

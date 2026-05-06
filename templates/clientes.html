@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% extends "base.html" %}
 
 {% block content %}
@@ -7,59 +6,27 @@
     <h3>Nuevo cliente</h3>
 
     <form method="post">
-        <input name="nombre" placeholder="Nombre">
+        <input name="nombre" placeholder="Nombre" required>
+        <input type="number" name="abono" placeholder="Abono" required>
+
         <button class="btn">Agregar</button>
     </form>
 </div>
 
 <div class="card">
-    <h3>Listado</h3>
+    <h3>Listado de clientes</h3>
 
     {% for c in clientes %}
         <div class="row">
-            <span>{{ c[1] }}</span>
+            <span>{{ c[1] }} - ${{ c[2] }}</span>
 
-            <form method="post" action="/eliminar_cliente/{{ c[0] }}">
-                <button class="btn-danger">Eliminar</button>
+            <form action="/eliminar_cliente/{{ c[0] }}" method="get">
+                <button class="btn-danger" onclick="return confirm('¿Eliminar cliente?')">
+                    Eliminar
+                </button>
             </form>
         </div>
     {% endfor %}
 </div>
 
-=======
-{% extends "base.html" %}
-
-{% block content %}
-
-<h1>Clientes</h1>
-
-<div class="card">
-<form method="post">
-    Nombre:
-    <input name="nombre" required>
-
-    Abono:
-    <input type="number" name="abono" required>
-
-    <button type="submit">Agregar</button>
-</form>
-</div>
-
-<div class="card">
-<ul>
-{% for c in clientes %}
-    <li>
-    {{ c[1] }} - ${{ c[2] }}
-
-    <form action="/eliminar_cliente/{{ c[0] }}" method="get" class="inline-form">
-        <button class="btn-eliminar" onclick="return confirm('¿Eliminar cliente?')">Eliminar</button>
-    </form>
-	</li>
-{% endfor %}
-</ul>
-</div>
-
-<a href="/">Volver</a>
-
->>>>>>> 5e0e3dc590213e63d2ca6d7806baa3516c17f7d7
 {% endblock %}

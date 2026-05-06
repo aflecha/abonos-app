@@ -1,8 +1,3 @@
-<<<<<<< HEAD
 Flask
 gunicorn
-=======
-Flask
-gunicorn
->>>>>>> 5e0e3dc590213e63d2ca6d7806baa3516c17f7d7
 psycopg2-binary
