@@ -19,7 +19,13 @@
 </div>
 
 <div class="card resultado">
-    {{ mensaje }}
+    <p>{{ mensaje }}</p>
+
+    <form action="/saldar" method="get">
+        <button class="btn" onclick="return confirm('¿Confirmar que las cuentas están saldadas?')">
+            Saldar cuentas
+        </button>
+    </form>
 </div>
 
 <div class="card">
