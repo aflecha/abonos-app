@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
 	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abonos App</title>
 
     <style>
@@ -33,12 +34,15 @@
             color: #333;
             font-weight: bold;
         }
+		
+		.container {
+			width: 100%;
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 10px;
+		}
 
-        .container {
-            padding: 15px;
-        }
-
-        .card {
+		.card {
             background: white;
             padding: 15px;
             border-radius: 10px;
@@ -77,8 +81,20 @@
             justify-content: space-between;
             align-items: center;
         }
+		
+		@media (max-width: 768px) {
+		.container {
+			max-width: 100%;
+			padding: 10px;
+		}
+		
+		body {
+			font-size: 16px;
+			}
+		}
 
     </style>
+
 </head>
 
 <body>

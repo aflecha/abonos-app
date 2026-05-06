@@ -22,7 +22,7 @@ def crear_tablas():
 
     cur.execute("""
     CREATE TABLE IF NOT EXISTS clientes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
         nombre TEXT,
         abono REAL
     )
@@ -30,7 +30,7 @@ def crear_tablas():
 
     cur.execute("""
     CREATE TABLE IF NOT EXISTS pagos (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
         cliente_id INTEGER,
         fecha TEXT,
         importe REAL,
@@ -40,7 +40,7 @@ def crear_tablas():
 
     cur.execute("""
     CREATE TABLE IF NOT EXISTS gastos (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
         descripcion TEXT,
         fecha TEXT,
         importe REAL,
@@ -65,7 +65,7 @@ def index():
     params = ()
 
     if mes:
-        filtro = "WHERE substr(fecha,1,7) = ?"
+        filtro = "WHERE SUBSTRING(fecha,1,7) = %s"
         params = (mes,)
 
     # ingresos
@@ -103,9 +103,9 @@ def index():
     balance = neto_abel - mitad
 
     if balance > 0:
-        mensaje = f"Valeria debe transferir a Abel: ${round(balance,2)}"
+        mensaje = f"Abel debe transferir a Valeria: ${round(balance,2)}"
     elif balance < 0:
-        mensaje = f"Abel debe transferir a Valeria: ${round(abs(balance),2)}"
+        mensaje = f"Valeria debe transferir a Abel: ${round(abs(balance),2)}"
     else:
         mensaje = "Cuentas saldadas"
 
@@ -128,7 +128,7 @@ def clientes():
     if request.method == "POST":
         nombre = request.form["nombre"]
         abono = request.form["abono"]
-        cur.execute("INSERT INTO clientes (nombre, abono) VALUES (?, ?)", (nombre, abono))
+        cur.execute("INSERT INTO clientes (nombre, abono) VALUES (%s, %s)", (nombre, abono))
         con.commit()
 
     cur.execute("SELECT * FROM clientes")
@@ -150,7 +150,7 @@ def pagos():
 
         cur.execute("""
         INSERT INTO pagos (cliente_id, fecha, importe, persona)
-        VALUES (?, ?, ?, ?)
+        VALUES (%s, %s, %s, %s)
         """, (cliente_id, fecha, importe, persona))
         con.commit()
 
@@ -182,7 +182,7 @@ def gastos():
 
         cur.execute("""
         INSERT INTO gastos (descripcion, fecha, importe, persona)
-        VALUES (?, ?, ?, ?)
+        VALUES (%s, %s, %s, %s)
         """, (descripcion, fecha, importe, persona))
         con.commit()
 
@@ -198,10 +198,10 @@ def eliminar_cliente(id):
     cur = con.cursor()
 
     # borrar pagos asociados
-    cur.execute("DELETE FROM pagos WHERE cliente_id = ?", (id,))
+    cur.execute("DELETE FROM pagos WHERE cliente_id = %s", (id,))
     
     # borrar cliente
-    cur.execute("DELETE FROM clientes WHERE id = ?", (id,))
+    cur.execute("DELETE FROM clientes WHERE id = %s", (id,))
 
     con.commit()
     con.close()
@@ -215,7 +215,7 @@ def informe():
 
     # pagos
     cur.execute("""
-    SELECT fecha, clientes.nombre, importe, 'PAGO', persona
+    SELECT fecha, clientes.nombre, importe, 'COBRO', persona
     FROM pagos
     JOIN clientes ON clientes.id = pagos.cliente_id
     """)
@@ -244,7 +244,7 @@ def eliminar_pago(id):
     con = conectar()
     cur = con.cursor()
 
-    cur.execute("DELETE FROM pagos WHERE id = ?", (id,))
+    cur.execute("DELETE FROM pagos WHERE id = %s", (id,))
 
     con.commit()
     con.close()
@@ -256,7 +256,7 @@ def eliminar_gasto(id):
     con = conectar()
     cur = con.cursor()
 
-    cur.execute("DELETE FROM gastos WHERE id = ?", (id,))
+    cur.execute("DELETE FROM gastos WHERE id = %s", (id,))
 
     con.commit()
     con.close()
