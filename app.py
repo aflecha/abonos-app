@@ -270,10 +270,54 @@ def informe():
 
     datos = pagos + gastos
     datos.sort(key=lambda x: x[0], reverse=True)
+    
+    # calcular balance pendiente
+
+    abel_ing = 0
+    vale_ing = 0
+    abel_gas = 0
+    vale_gas = 0
+
+    for d in datos:
+
+        tipo = d[3]
+        persona = d[4]
+        importe = d[2]
+
+        if tipo == "COBRO":
+            if persona == "Abel":
+                abel_ing += importe
+            else:
+                vale_ing += importe
+
+        if tipo == "GASTO":
+            if persona == "Abel":
+                abel_gas += importe
+            else:
+                vale_gas += importe
+
+    neto_abel = abel_ing - abel_gas
+    neto_vale = vale_ing - vale_gas
+
+    total = neto_abel + neto_vale
+    mitad = total / 2 if total else 0
+
+    balance = neto_abel - mitad
+
+    if balance > 0:
+        mensaje = f"Abel debe transferir a Valeria: ${round(balance,2)}"
+    elif balance < 0:
+        mensaje = f"Valeria debe transferir a Abel: ${round(abs(balance),2)}"
+    else:
+        mensaje = "Cuentas saldadas"
 
     con.close()
 
-    return render_template("informe.html", datos=datos)
+    return render_template(
+    "informe.html",
+    datos=datos,
+    mensaje=mensaje
+)
 
 # ===============================
 # SALDAR
